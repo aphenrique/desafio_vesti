@@ -2,10 +2,10 @@ import 'package:desafio_vesti/features/product/data/datasource/get_product_datas
 import 'package:desafio_vesti/features/product/domain/entities/product.dart';
 import 'package:desafio_vesti/features/product/domain/repositories/product_repository.dart';
 
-class RepositoryImpl implements ProductRepository {
-  GetProductsDatasource datasource;
+class ProductRepositoryImpl implements ProductRepository {
+  final GetProductsDatasource datasource;
 
-  RepositoryImpl(this.datasource);
+  ProductRepositoryImpl(this.datasource);
 
   @override
   Future<List<Product>> getProducts() async {
