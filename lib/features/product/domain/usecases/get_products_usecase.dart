@@ -4,9 +4,7 @@ import 'package:desafio_vesti/features/product/domain/repositories/product_repos
 class GetProductsUsecase {
   final ProductRepository repository;
 
-  GetProductsUsecase(
-    this.repository,
-  );
+  GetProductsUsecase(this.repository);
 
   Future<List<Product>> call() async => await repository.getProducts();
 }
