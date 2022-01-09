@@ -1,12 +1,26 @@
 import 'package:flutter/material.dart';
 
+import 'package:desafio_vesti/features/product/data/datasource/dio/dio_datasource.dart';
+import 'package:desafio_vesti/features/product/data/repositories/product_repository_impl.dart';
+import 'package:desafio_vesti/features/product/domain/entities/product.dart';
+import 'package:desafio_vesti/features/product/domain/usecases/get_products_usecase.dart';
+import 'package:desafio_vesti/features/product/view/controllers/product_list_controler.dart';
+
 class ProductPage extends StatelessWidget {
-  const ProductPage({Key? key}) : super(key: key);
+  final Product product;
+
+  ProductPage({
+    Key? key,
+    required this.product,
+  }) : super(key: key);
+
+  final productList = ProductListController(
+      GetProductsUsecase(ProductRepositoryImpl(DioDatasource())));
 
   @override
   Widget build(BuildContext context) {
     double _width = MediaQuery.of(context).size.width / 2 - 2;
-    double _height = _width * (4 / 3);
+    double _height = _width * (5 / 3);
 
     return Container(
       width: _width,
@@ -14,20 +28,18 @@ class ProductPage extends StatelessWidget {
       color: Colors.white,
       margin: const EdgeInsets.all(1),
       child: Stack(
-        // alignment: Alignment.bottomLeft,
         children: [
           Positioned.fill(
-            left: 10,
-            bottom: 60,
-            right: 20,
-            top: 10,
+            left: 20,
+            bottom: 70,
+            right: 30,
+            top: 20,
             child: InkResponse(
               onTap: () {},
               child: Container(
                 alignment: Alignment.center,
-                // padding: EdgeInsets.symmetric(horizontal: 20),
                 child: Image.network(
-                  "https://fakestoreapi.com/img/61pHAEJ4NML._AC_UX679_.jpg",
+                  product.image,
                   fit: BoxFit.contain,
                 ),
               ),
@@ -41,20 +53,20 @@ class ProductPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
-              children: const [
+              children: [
                 Text(
-                  "\$ 12.99",
-                  style: TextStyle(
+                  "\$ ${product.price}",
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
                   ),
                 ),
                 Text(
-                  "DANVOUY Womens T Shirt Casual Cotton Short",
+                  product.title,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   softWrap: true,
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: Colors.grey, fontWeight: FontWeight.bold),
                 ),
               ],
@@ -85,23 +97,29 @@ class ProductPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  InkResponse(
-                    onTap: () {},
-                    child: const SizedBox(
-                      height: 40,
-                      child: Icon(
-                        Icons.minimize,
-                        color: Colors.white,
-                        size: 20,
+                  Visibility(
+                    visible: false,
+                    child: InkResponse(
+                      onTap: () {},
+                      child: const SizedBox(
+                        height: 40,
+                        child: Icon(
+                          Icons.minimize,
+                          color: Colors.white,
+                          size: 20,
+                        ),
                       ),
                     ),
                   ),
-                  Container(
-                    alignment: Alignment.center,
-                    height: 40,
-                    child: const Text(
-                      "02",
-                      style: TextStyle(color: Colors.white),
+                  Visibility(
+                    visible: false,
+                    child: Container(
+                      alignment: Alignment.center,
+                      height: 40,
+                      child: const Text(
+                        "02",
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
                   ),
                   InkResponse(
