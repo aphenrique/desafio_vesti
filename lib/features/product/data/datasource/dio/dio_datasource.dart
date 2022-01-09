@@ -1,9 +1,8 @@
 import 'package:desafio_vesti/features/product/data/datasource/get_product_datasource.dart';
-import 'package:desafio_vesti/features/product/utils/http_service.dart';
 import 'package:desafio_vesti/features/product/utils/app_endpoint.dart';
 import 'package:dio/dio.dart';
 
-class DioDatasource extends GetProductsDatasource implements HttpService {
+class DioDatasource implements GetProductsDatasource {
   late Dio _dio;
 
   DioDatasource() {
@@ -14,7 +13,6 @@ class DioDatasource extends GetProductsDatasource implements HttpService {
     );
   }
 
-  @override
   Future<Response<T>> get<T>(String path,
       {Map<String, dynamic>? queryParameters}) {
     return _dio.get<T>(path, queryParameters: queryParameters);
