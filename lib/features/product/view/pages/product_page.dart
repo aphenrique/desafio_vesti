@@ -26,8 +26,13 @@ class ProductPage extends StatefulWidget {
 class _ProductPageState extends State<ProductPage> {
   final colorValue = ColorValue();
 
+  bool isClothingCategory = false;
+
   @override
   Widget build(BuildContext context) {
+    isClothingCategory =
+        widget.product.category.contains("clothing") ? true : false;
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -57,9 +62,12 @@ class _ProductPageState extends State<ProductPage> {
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(24.0),
-                    child: Image.network(
-                      widget.product.image,
-                      fit: BoxFit.fitWidth,
+                    child: Hero(
+                      tag: widget.product.id.toString(),
+                      child: Image.network(
+                        widget.product.image,
+                        fit: BoxFit.fitWidth,
+                      ),
                     ),
                   ),
                 ),
@@ -76,20 +84,26 @@ class _ProductPageState extends State<ProductPage> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  ProductInfoWidget(
-                    subtitle: "Size (US):",
-                    content: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: const [
-                        Text("4"),
-                        Text("6"),
-                        Text("8"),
-                      ],
+                  Visibility(
+                    visible: isClothingCategory,
+                    child: ProductInfoWidget(
+                      subtitle: "Size (US):",
+                      content: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: const [
+                          Text("4"),
+                          Text("6"),
+                          Text("8"),
+                        ],
+                      ),
                     ),
                   ),
-                  ProductInfoWidget(
-                      subtitle: "Color:",
-                      content: CustomColorRadio(colorValue: colorValue)),
+                  Visibility(
+                    visible: isClothingCategory,
+                    child: ProductInfoWidget(
+                        subtitle: "Color:",
+                        content: CustomColorRadio(colorValue: colorValue)),
+                  ),
                   ProductInfoWidget(
                     subtitle: "Description:",
                     content: Text(widget.product.description,
