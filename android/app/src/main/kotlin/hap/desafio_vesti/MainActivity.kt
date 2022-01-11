@@ -1,4 +1,4 @@
-package com.example.desafio_vesti
+package hap.desafio_vesti
 
 import io.flutter.embedding.android.FlutterActivity
 
