@@ -1,143 +1,134 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: prefer_const_constructors
 
-import 'package:desafio_vesti/features/product/data/datasource/dio/dio_datasource.dart';
-import 'package:desafio_vesti/features/product/data/repositories/product_repository_impl.dart';
+import 'package:desafio_vesti/features/basket/domain/entities/basket_item.dart';
+import 'package:desafio_vesti/features/basket/domain/usecases/add_item_to_basket_usecase.dart';
 import 'package:desafio_vesti/features/product/domain/entities/product.dart';
-import 'package:desafio_vesti/features/product/domain/usecases/get_products_usecase.dart';
-import 'package:desafio_vesti/features/product/view/controllers/product_list_controler.dart';
+import 'package:desafio_vesti/features/product/view/widgets/color_value.dart';
+import 'package:desafio_vesti/features/product/view/widgets/custom_color_radio.dart';
+import 'package:desafio_vesti/features/product/view/widgets/product_info_widget.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class ProductPage extends StatelessWidget {
+class ProductPage extends StatefulWidget {
   final Product product;
+  final BasketItem basketItem;
 
-  ProductPage({
+  const ProductPage({
     Key? key,
     required this.product,
+    required this.basketItem,
   }) : super(key: key);
 
-  final productList = ProductListController(
-      GetProductsUsecase(ProductRepositoryImpl(DioDatasource())));
+  @override
+  State<ProductPage> createState() => _ProductPageState();
+}
+
+class _ProductPageState extends State<ProductPage> {
+  final colorValue = ColorValue();
 
   @override
   Widget build(BuildContext context) {
-    double _width = MediaQuery.of(context).size.width / 2 - 2;
-    double _height = _width * (5 / 3);
-
-    return Container(
-      width: _width,
-      height: _height,
-      color: Colors.white,
-      margin: const EdgeInsets.all(1),
-      child: Stack(
-        children: [
-          Positioned.fill(
-            left: 20,
-            bottom: 70,
-            right: 30,
-            top: 20,
-            child: InkResponse(
-              onTap: () {},
-              child: Container(
-                alignment: Alignment.center,
-                child: Image.network(
-                  product.image,
-                  fit: BoxFit.contain,
-                ),
-              ),
-            ),
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new_rounded),
+          onPressed: () => Navigator.maybePop(context),
+        ),
+        title: Container(
+          alignment: Alignment.centerRight,
+          child: Text(
+            widget.product.title,
+            overflow: TextOverflow.ellipsis,
           ),
-          Positioned(
-            bottom: 16,
-            left: 16,
-            right: 44,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.start,
+        ),
+      ),
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          children: [
+            Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
-                  "\$ ${product.price}",
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
+                IconButton(
+                  color: Colors.grey,
+                  onPressed: () {},
+                  icon: const Icon(Icons.arrow_back_ios_rounded),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(24.0),
+                    child: Image.network(
+                      widget.product.image,
+                      fit: BoxFit.fitWidth,
+                    ),
                   ),
                 ),
-                Text(
-                  product.title,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  softWrap: true,
-                  style: const TextStyle(
-                      color: Colors.grey, fontWeight: FontWeight.bold),
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(Icons.arrow_forward_ios_rounded),
                 ),
               ],
             ),
-          ),
-          Positioned(
-            top: 0,
-            right: 0,
-            child: IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.bookmark_outline_rounded,
-                color: Colors.black,
-              ),
-            ),
-          ),
-          Positioned(
-            right: 0,
-            bottom: 0,
-            child: Container(
-              width: 40,
-              // height: 40,
-              decoration: const BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(20)),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16,
               ),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Visibility(
-                    visible: false,
-                    child: InkResponse(
-                      onTap: () {},
-                      child: const SizedBox(
-                        height: 40,
-                        child: Icon(
-                          Icons.minimize,
-                          color: Colors.white,
-                          size: 20,
-                        ),
-                      ),
+                  ProductInfoWidget(
+                    subtitle: "Size (US):",
+                    content: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: const [
+                        Text("4"),
+                        Text("6"),
+                        Text("8"),
+                      ],
                     ),
                   ),
-                  Visibility(
-                    visible: false,
-                    child: Container(
-                      alignment: Alignment.center,
-                      height: 40,
-                      child: const Text(
-                        "02",
-                        style: TextStyle(color: Colors.white),
-                      ),
+                  ProductInfoWidget(
+                      subtitle: "Color:",
+                      content: CustomColorRadio(colorValue: colorValue)),
+                  ProductInfoWidget(
+                    subtitle: "Description:",
+                    content: Text(widget.product.description,
+                        softWrap: true,
+                        textAlign: TextAlign.justify,
+                        style: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold)),
+                  ),
+                  ProductInfoWidget(
+                    subtitle: "Price:",
+                    content: Text(
+                      "\$ ${widget.product.price}",
+                      overflow: TextOverflow.ellipsis,
+                      softWrap: true,
+                      maxLines: 10,
+                      textAlign: TextAlign.end,
+                      style: const TextStyle(
+                          fontSize: 22, fontWeight: FontWeight.bold),
                     ),
                   ),
-                  InkResponse(
-                    onTap: () {},
-                    child: const SizedBox(
-                      height: 40,
-                      child: Icon(
-                        Icons.add,
-                        color: Colors.white,
-                        size: 20,
-                      ),
+                  SizedBox(height: 10),
+                  ElevatedButton(
+                    onPressed: () {
+                      final addbasketItemUsecase =
+                          context.read<AddItemToBasketUsecase>();
+
+                      addbasketItemUsecase(widget.basketItem);
+                    },
+                    child: const Text(
+                      "Add to basket",
+                      // style: TextStyle(color: Colors.white),
                     ),
                   ),
+                  SizedBox(height: 20)
                 ],
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
