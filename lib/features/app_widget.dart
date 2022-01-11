@@ -1,3 +1,5 @@
+import 'package:desafio_vesti/utils/app_theme.dart';
+
 import 'basket/domain/entities/basket.dart';
 import 'basket/domain/usecases/add_item_to_basket_usecase.dart';
 import 'basket/view/controllers/basket_quantity.dart';
@@ -71,40 +73,7 @@ class AppWidget extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.grey,
-          bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-              selectedItemColor: Colors.black87,
-              unselectedItemColor: Colors.grey),
-          floatingActionButtonTheme: const FloatingActionButtonThemeData(
-            backgroundColor: Colors.white,
-            elevation: 100,
-            sizeConstraints: BoxConstraints(maxHeight: 70, maxWidth: 70),
-          ),
-          bottomAppBarTheme: const BottomAppBarTheme(
-            color: Colors.white,
-            elevation: 1,
-          ),
-          elevatedButtonTheme: ElevatedButtonThemeData(
-            style: ButtonStyle(
-              fixedSize: MaterialStateProperty.all<Size>(
-                  const Size(double.maxFinite, 60)),
-              textStyle: MaterialStateProperty.all<TextStyle>(
-                const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              backgroundColor:
-                  MaterialStateProperty.all<Color>(Colors.deepOrange),
-              shape: MaterialStateProperty.all(
-                RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(24),
-                ),
-              ),
-            ),
-          ),
-        ),
+        theme: AppTheme.theme,
         initialRoute: "/",
         routes: _routes(),
       ),
