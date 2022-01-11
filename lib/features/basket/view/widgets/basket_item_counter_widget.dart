@@ -9,7 +9,7 @@ class BasketItemCounterWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final basketQuantity = context.watch<BasketQuantity>();
+    var basketQuantity = context.watch<BasketQuantity>();
 
     return SizedBox(
       width: 30,
@@ -19,14 +19,14 @@ class BasketItemCounterWidget extends StatelessWidget {
         child: Container(
           alignment: Alignment.center,
           color: Colors.red,
-          child: ValueListenableBuilder(
-            valueListenable: context.watch<BasketQuantity>(),
-            builder: (context, value, child) => Text(
-              value.toString(),
-              style: const TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-              ),
+          child: Text(
+            basketQuantity.value.toString().length > 1
+                ? basketQuantity.value.toString()
+                : "0${basketQuantity.value.toString()}",
+            style: const TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
             ),
           ),
         ),
