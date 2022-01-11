@@ -13,12 +13,11 @@ class RemoveItemToBasketUsecase {
 
     if (item == null) return false;
 
-    if (item.quantity.value <= 1) {
+    if (item.quantity <= 1) {
       basket.basket.remove(basketItem);
-      item.quantity.value--;
-    } else {
-      item.quantity.value--;
     }
+
+    item.remove();
 
     return true;
   }

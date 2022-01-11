@@ -11,10 +11,11 @@ class AddItemToBasketUsecase {
   bool call(BasketItem basketItem) {
     BasketItem? item = basket.getBasketItemById(id: basketItem.productId);
 
-    if (item != null) {
-      item.quantity.value++;
-    } else {
+    if (item == null) {
       basket.basket.add(basketItem);
+      call(basketItem);
+    } else {
+      item.add();
     }
 
     return true;

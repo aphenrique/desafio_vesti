@@ -11,7 +11,7 @@ class Basket {
     int total = 0;
 
     for (var item in basket) {
-      total += item.quantity.value;
+      total += item.quantity;
     }
 
     return total;
