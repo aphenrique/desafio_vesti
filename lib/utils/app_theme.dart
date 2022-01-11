@@ -22,7 +22,6 @@ class AppTheme {
     elevation: 0,
     backgroundColor: Colors.white,
     centerTitle: true,
-    toolbarHeight: 60,
   );
 
   static final _elevatedButtonTheme = ElevatedButtonThemeData(

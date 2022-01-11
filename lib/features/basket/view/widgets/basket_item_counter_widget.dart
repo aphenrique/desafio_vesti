@@ -11,22 +11,25 @@ class BasketItemCounterWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     var basketQuantity = context.watch<BasketQuantity>();
 
-    return SizedBox(
-      width: 30,
-      height: 30,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(16),
-        child: Container(
-          alignment: Alignment.center,
-          color: Colors.red,
-          child: Text(
-            basketQuantity.value.toString().length > 1
-                ? basketQuantity.value.toString()
-                : "0${basketQuantity.value.toString()}",
-            style: const TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
+    return Visibility(
+      visible: basketQuantity.value > 0 ? true : false,
+      child: SizedBox(
+        width: 30,
+        height: 30,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(16),
+          child: Container(
+            alignment: Alignment.center,
+            color: Colors.red,
+            child: Text(
+              basketQuantity.value.toString().length > 1
+                  ? basketQuantity.value.toString()
+                  : "0${basketQuantity.value.toString()}",
+              style: const TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
           ),
         ),
