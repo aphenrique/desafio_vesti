@@ -1,11 +1,8 @@
-import 'package:desafio_vesti/features/basket/domain/entities/basket.dart';
 import 'package:desafio_vesti/features/basket/domain/entities/basket_item.dart';
-import 'package:desafio_vesti/features/basket/view/controllers/basket_quantity.dart';
 import 'package:desafio_vesti/features/product/domain/entities/product.dart';
 import 'package:desafio_vesti/features/product/view/pages/product_page.dart';
 import 'package:desafio_vesti/features/product/view/widgets/basket_item_manage_button_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class ProductViewWidget extends StatefulWidget {
   final Product product;

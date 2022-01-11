@@ -1,12 +1,11 @@
-import 'package:desafio_vesti/features/basket/domain/entities/basket.dart';
-import 'package:desafio_vesti/features/basket/view/controllers/basket_quantity.dart';
 import 'package:desafio_vesti/features/basket/view/widgets/basket_item_counter_widget.dart';
 import 'package:desafio_vesti/features/home/widgets/custom_bottom_navigation_bar.dart';
 import 'package:desafio_vesti/features/product/view/controllers/product_list_controler.dart';
-import 'package:desafio_vesti/features/product/view/widgets/product_view_widget.dart';
 import 'package:desafio_vesti/features/product/view/widgets/category_menu_widget.dart';
+import 'package:desafio_vesti/features/product/view/widgets/product_view_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'dart:developer' as developer;
 
 class ProductListPage extends StatefulWidget {
   const ProductListPage({Key? key}) : super(key: key);
@@ -19,8 +18,6 @@ class _MyHomePageState extends State<ProductListPage> {
   @override
   Widget build(BuildContext context) {
     final _productList = context.watch<ProductListController>();
-
-    final basket = context.watch<Basket>();
 
     return Scaffold(
       appBar: AppBar(
@@ -67,7 +64,7 @@ class _MyHomePageState extends State<ProductListPage> {
       bottomNavigationBar: const CustomBottomNavigationBar(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          print("Going to shopping basket!");
+          developer.log("Going to shopping basket!");
         },
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(26)),
         backgroundColor: Colors.white,

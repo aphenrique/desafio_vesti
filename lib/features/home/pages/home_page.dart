@@ -1,5 +1,3 @@
-import 'package:desafio_vesti/features/product/domain/entities/product.dart';
-import 'package:desafio_vesti/features/product/view/pages/product_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
