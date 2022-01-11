@@ -1,16 +1,21 @@
-# desafio_vesti
+# Desafio Vesti
 
-A new Flutter project.
+Desafio proposto pela empresa Vesti que consiste na criação de uma página de catálogo de produtos e outra de detalhes do produto.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## Bibliotecas utilizadas
 
-A few resources to get you started if this is your first Flutter project:
+**Dio** para busca das informações da API.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+**Provider** para injeção de dependência e reatividade
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+O restante foi desenvolvido em dart puro por me sentir mais seguro, especialmente pelo prazo apertado do desafio.
+
+Para reatividade, utilizei o ValueNotifier por ser uma reatividade simples e fácil de gerenciar.
+
+## Dificuldades do desafio
+
+Minha maior dificuldade com o desafio foi o prazo por ter que conciliar outras muitas demandas. Este código será melhorado depois da entrega, certamente.
+
+Alguns ícones ficaram diferentes do proposto, mas sem comprometer visualmente a proposta.
