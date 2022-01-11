@@ -2,6 +2,8 @@
 
 Desafio proposto pela empresa Vesti que consiste na criação de uma página de catálogo de produtos e outra de detalhes do produto.
 
+![Desafio Vesti](./apk/desafio_vesti.gif "Desafio Vesti")
+
 ---
 
 ## Funcionalidades
