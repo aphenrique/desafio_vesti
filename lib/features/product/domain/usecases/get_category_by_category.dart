@@ -8,5 +8,6 @@ class GetCategoryByCategoryUsecase {
     required this.repository,
   });
 
-  Future<Category> call() async => await repository.getCategoryByCategory();
+  Future<Category> call({required String category}) async =>
+      await repository.getCategoryByCategory(category: category);
 }
