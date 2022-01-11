@@ -1,10 +1,9 @@
 import 'package:desafio_vesti/features/basket/domain/entities/basket.dart';
 import 'package:desafio_vesti/features/basket/domain/entities/basket_item.dart';
-import 'package:desafio_vesti/features/basket/domain/usecases/add_item_to_basket_usecase.dart';
-import 'package:desafio_vesti/features/basket/domain/usecases/remove_item_to_basket_usecase.dart';
 import 'package:desafio_vesti/features/basket/view/controllers/basket_quantity.dart';
 import 'package:desafio_vesti/features/product/domain/entities/product.dart';
 import 'package:desafio_vesti/features/product/view/pages/product_page.dart';
+import 'package:desafio_vesti/features/product/view/widgets/basket_item_manage_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -119,78 +118,9 @@ class _ProductViewWidgetState extends State<ProductViewWidget> {
             ),
           ),
           Positioned(
-            right: 0,
-            bottom: 0,
-            child: Container(
-              width: 40,
-              decoration: const BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(20)),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Visibility(
-                    visible: basketItem.quantity.value > 0 ? true : false,
-                    child: InkResponse(
-                      onTap: () {
-                        final removeItemUsecase =
-                            context.read<RemoveItemToBasketUsecase>();
-
-                        if (removeItemUsecase(basketItem)) {
-                          setState(() {
-                            basketItem.remove();
-                            basketQuantity.value = basket.totalItems;
-                          });
-                        }
-                      },
-                      child: const SizedBox(
-                        height: 40,
-                        child: Icon(
-                          Icons.minimize,
-                          color: Colors.white,
-                          size: 20,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Visibility(
-                    visible: basketItem.quantity.value > 0 ? true : false,
-                    child: Container(
-                      alignment: Alignment.center,
-                      height: 40,
-                      child: Text(
-                        basketItem.quantity.value.toString(),
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ),
-                  InkResponse(
-                    onTap: () {
-                      final addItemUsecase =
-                          context.read<AddItemToBasketUsecase>();
-
-                      if (addItemUsecase(basketItem)) {
-                        setState(() {
-                          basketItem.add();
-                          basketQuantity.value = basket.totalItems;
-                        });
-                      }
-                    },
-                    child: const SizedBox(
-                      height: 40,
-                      child: Icon(
-                        Icons.add,
-                        color: Colors.white,
-                        size: 20,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+              right: 0,
+              bottom: 0,
+              child: BasketItemManageButtonWidget(basketItem: basketItem)),
         ],
       ),
     );
