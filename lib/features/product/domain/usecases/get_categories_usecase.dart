@@ -4,9 +4,7 @@ import 'package:desafio_vesti/features/product/domain/repositories/catagory_repo
 class GetCategoriesUsecase {
   CategoryRepository repository;
 
-  GetCategoriesUsecase({
-    required this.repository,
-  });
+  GetCategoriesUsecase(this.repository);
 
   Future<List<Category>> call() async => await repository.getCategories();
 }
